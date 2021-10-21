@@ -4,6 +4,18 @@ networks:
   go-postgres13-network:
 
 services:
+  go-web-service:
+    build:
+      context: .
+    container_name: go-web-app
+    ports:
+      - "80:8080"
+    volumes:
+      - ./app:/app
+    command: sh -c "go build -o /app_build/main . && /app_build/main" # "main" - app name
+    depends_on:
+      - postgres13-service
+
 
   # postgres
   postgres13-service:

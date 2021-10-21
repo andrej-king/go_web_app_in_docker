@@ -1,0 +1,22 @@
+version: '3.7'
+
+networks:
+  go-postgres13-network:
+
+services:
+
+  # postgres
+  postgres13-service:
+    image: postgres:13-alpine
+    container_name: postgres13-container
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    restart: always # always restart unless stopped manually
+    environment:
+      POSTGRES_USER: main
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: app
+    networks:
+      - go-postgres13-network
